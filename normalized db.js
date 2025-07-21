@@ -1,14 +1,17 @@
-use("socialmedia");
+// === Users ===
+const thomasId = ObjectId();
+const janeId = ObjectId();
+
 db.users.insertMany([
   {
-    _id: ObjectId(),
+    _id: thomasId,
     username: "thomas",
     email: "thomas@example.com",
     bio: "Learning MongoDB!",
     createdAt: new Date()
   },
   {
-    _id: ObjectId(),
+    _id: janeId,
     username: "jane",
     email: "jane@example.com",
     bio: "Frontend dev",
@@ -16,41 +19,44 @@ db.users.insertMany([
   }
 ]);
 
+// === Posts ===
+const post1Id = ObjectId();
+const post2Id = ObjectId();
 
 db.posts.insertMany([
   {
-    _id: ObjectId(),
-    userId: db.users.findOne({ username: "thomas" })._id,
+    _id: post1Id,
+    userId: thomasId,
     content: "MongoDB is awesome!",
     media: [],
     createdAt: new Date()
   },
   {
-    _id: ObjectId(),
-    userId: db.users.findOne({ username: "jane" })._id,
+    _id: post2Id,
+    userId: janeId,
     content: "Hello world!",
     media: [],
     createdAt: new Date()
   }
 ]);
 
+// === Comments ===
+const comment1Id = ObjectId();
 
-db.comments.insertMany([
-  {
-    _id: ObjectId(),
-    postId: db.posts.findOne({ content: "MongoDB is awesome!" })._id,
-    userId: db.users.findOne({ username: "jane" })._id,
-    text: "I agree!",
-    createdAt: new Date()
-  }
-]);
+db.comments.insertOne({
+  _id: comment1Id,
+  postId: post1Id,
+  userId: janeId,
+  text: "I agree!",
+  createdAt: new Date()
+});
 
+// === Likes ===
+const like1Id = ObjectId();
 
-db.likes.insertMany([
-  {
-    _id: ObjectId(),
-    postId: db.posts.findOne({ content: "MongoDB is awesome!" })._id,
-    userId: db.users.findOne({ username: "jane" })._id,
-    createdAt: new Date()
-  }
-]);
+db.likes.insertOne({
+  _id: like1Id,
+  postId: post1Id,
+  userId: janeId,
+  createdAt: new Date()
+});
