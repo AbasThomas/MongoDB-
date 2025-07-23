@@ -137,7 +137,7 @@ const notif2Id = ObjectId();
 db.notifications.insertMany([
   {
     _id: notif1Id,
-    userId: thomasId,
+    userId: thomasId, 
     type: "like",
     fromUserId: janeId,
     postId: post1Id,
