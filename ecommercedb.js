@@ -127,6 +127,25 @@ db.orders.aggregate([
     }
   }])
 //total revenue per product
+db.orders.aggregate([
+  {
+    $lookup: {
+      from: "products",
+      localField: "productId",
+      foreignField: "_id",
+      as: "product"
+    }
+  },
+  { $unwind: "$product" },
+  {
+    $group: {
+      _id: "$product.name",
+      totalRevenue: { $sum: { $multiply: ["$quantity", "$product.price"] } }
+    }
+  },
+  { $sort: { totalRevenue: -1 } }
+])
+
 ///which userss ordered more than 1 item in a single order
 // top highest spending users
 //limit users who ordered fashion items
