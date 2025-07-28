@@ -29,4 +29,3 @@ db.users.insertMany([
   }
 ]);
 
-?
