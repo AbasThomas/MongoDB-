@@ -29,5 +29,5 @@ try {
   print("✅ Transaction committed successfully.");
 } catch (err) {
   session.abortTransaction();
-  print("❌ Transaction aborted due to error:", err.message);
+  print("❌ Transaction aborted due to error:", err.message);
 }
